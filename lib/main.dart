@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:vpn_basic_project/preferences/app_preferences.dart';
+import 'package:vpn_basic_project/screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await AppPreferences.initHive();
 
   runApp(const MyApp());
 }
@@ -11,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Free Vpn',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -19,6 +24,7 @@ class MyApp extends StatelessWidget {
           elevation: 3,
         ),
       ),
+      themeMode: AppPreferences.isModeDark ? ThemeMode.dark : ThemeMode.light,
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(
@@ -27,16 +33,14 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            "Hello World",
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
+      home: HomeScreen(),
     );
   }
+}
+
+extension AppTheme on ThemeData {
+  Color get lightTextColor =>
+      AppPreferences.isModeDark ? Colors.white70 : Colors.black54;
+  Color get bottomNavigationColor =>
+      AppPreferences.isModeDark ? Colors.white12 : Colors.redAccent;
 }
