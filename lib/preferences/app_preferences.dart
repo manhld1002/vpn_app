@@ -19,7 +19,8 @@ class AppPreferences {
   // Saving single selected vpn details
   static VpnInfo get vpnInfoObj =>
       VpnInfo.fromJSON(jsonDecode(boxOfData.get("vpn") ?? '{}'));
-  static set vpnInfoObj(VpnInfo value) => boxOfData.put("vpn", value);
+  static set vpnInfoObj(VpnInfo value) =>
+      boxOfData.put("vpn", jsonEncode(value));
 
   // Saving all VPN Servers details
   static List<VpnInfo> get vpnList {

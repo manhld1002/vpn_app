@@ -8,19 +8,21 @@ class VpnEngine {
   // native channel
   static final String eventChannelVpnStage = "vpnStage";
   static final String eventChannelVpnStatus = "vpnStatus";
-  static final String methodChannelVPnControll = "vpnControll";
+  static final String methodChannelVPnControl = "vpnControl";
 
+  // Display the stage of the VPN
   static Stream<String> snapshotVpnStage() =>
       EventChannel(eventChannelVpnStage).receiveBroadcastStream().cast();
 
-  static Stream<String> snapshotVpnStatus() =>
+  // Display the status of the VPN
+  static Stream<VpnStatus> snapshotVpnStatus() =>
       EventChannel(eventChannelVpnStatus)
           .receiveBroadcastStream()
           .map((eventStatus) => VpnStatus.fromJson(jsonDecode(eventStatus)))
           .cast();
 
   static Future<void> startVpnNow(VpnConfiguration vpnConfiguration) async {
-    return MethodChannel(methodChannelVPnControll).invokeMethod("start", {
+    return MethodChannel(methodChannelVPnControl).invokeMethod("start", {
       "config": vpnConfiguration.config,
       "country": vpnConfiguration.countryname,
       "username": vpnConfiguration.username,
@@ -29,19 +31,19 @@ class VpnEngine {
   }
 
   static Future<void> stopVpnNow() {
-    return MethodChannel(methodChannelVPnControll).invokeMethod("stop");
+    return MethodChannel(methodChannelVPnControl).invokeMethod("stop");
   }
 
   static Future<void> killSwitchOpenNow() {
-    return MethodChannel(methodChannelVPnControll).invokeMethod("kill_switch");
+    return MethodChannel(methodChannelVPnControl).invokeMethod("kill_switch");
   }
 
   static Future<void> refreshStageNow() {
-    return MethodChannel(methodChannelVPnControll).invokeMethod("refresh");
+    return MethodChannel(methodChannelVPnControl).invokeMethod("refresh");
   }
 
   static Future<String?> getStageNow() {
-    return MethodChannel(methodChannelVPnControll).invokeMethod("stage");
+    return MethodChannel(methodChannelVPnControl).invokeMethod("stage");
   }
 
   static Future<bool> isConnectedNow() {

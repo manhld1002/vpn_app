@@ -12,6 +12,7 @@
     
     
     <application
+        android:enableOnBackInvokedCallback="true"
         android:name="${applicationName}"
         android:label="Free VPN"
         android:icon="@mipmap/logo"

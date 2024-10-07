@@ -22,7 +22,7 @@ class VpnInfo {
   VpnInfo.fromJSON(Map<String, dynamic> jsonData) {
     hostname = jsonData['HostName'] ?? "";
     ip = jsonData['IP'] ?? "";
-    ping = jsonData['Ping'] ?? "";
+    ping = jsonData['Ping'].toString();
     speed = jsonData['Speed'] ?? 0;
     countryLongName = jsonData['CountryLong'] ?? "";
     countryShortName = jsonData['CountryShort'] ?? "";

@@ -23,9 +23,9 @@ class HomeController extends GetxController {
     if (vpnConnectionState.value == VpnEngine.vpnDisconnectedNow) {
       final dataConfigVpn = Base64Decoder()
           .convert(vpnInfo.value.base640OpenVPNConfigurationData);
+      // .ovpn file
       final configuration = Utf8Decoder().convert(dataConfigVpn);
-
-      // Default username and password
+      // Default username and password to use 
       final vpnConfiguration = VpnConfiguration(
         username: "vpn",
         password: "vpn",
@@ -53,7 +53,7 @@ class HomeController extends GetxController {
   String get getRoundVpnButtonText {
     switch (vpnConnectionState.value) {
       case VpnEngine.vpnDisconnectedNow:
-        return "Let's Connect";
+        return "Connect";
       case VpnEngine.vpnConnectedNow:
         return "Disconnect";
       default:
